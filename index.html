@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo de Manejo - DII na Emergência</title>
-    <!-- Usando Tailwind CSS via CDN para estilização rápida e responsiva -->
+    <title>Protocolo/Algoritmo - Paciente com DII</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonte Google: Inter para interface limpa -->
+    <!-- Fonte Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -15,20 +15,23 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* Estilo para tabelas simuladas do PDF */
+        .pdf-table th { @apply bg-gray-100 text-gray-700 font-semibold p-2 text-xs border border-gray-300; }
+        .pdf-table td { @apply p-2 text-xs border border-gray-300; }
+        .info-box { @apply bg-yellow-50 border border-yellow-200 rounded p-3 text-sm text-gray-700 mb-4; }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="bg-slate-50 min-h-screen flex flex-col">
 
-    <!-- Cabeçalho Institucional Simulado -->
+    <!-- Cabeçalho -->
     <header class="bg-blue-900 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <div>
-                <h1 class="text-xl font-bold">Protocolo Clínico DII</h1>
-                <p class="text-xs text-blue-200">Sistema de Apoio à Decisão Médica</p>
+                <h1 class="text-xl font-bold">Protocolo: Paciente com DII</h1>
+                <p class="text-xs text-blue-200">Algoritmo de Manejo na Emergência</p>
             </div>
             <div class="text-right hidden md:block">
-                <p class="text-xs">Revisão: 2026.1</p>
-                <p class="text-xs">Uso exclusivo para profissionais</p>
+                <p class="text-xs opacity-75">Baseado em Protocolo Clínico</p>
             </div>
         </div>
     </header>
@@ -36,32 +39,34 @@
     <!-- Conteúdo Principal -->
     <main class="flex-grow container mx-auto p-4 flex items-center justify-center">
         
-        <div id="app-card" class="bg-white rounded-xl shadow-lg w-full max-w-2xl overflow-hidden border border-gray-200 fade-in">
+        <div id="app-card" class="bg-white rounded-xl shadow-lg w-full max-w-3xl overflow-hidden border border-gray-200 fade-in">
             
-            <!-- Barra de Progresso / Status -->
+            <!-- Barra de Status -->
             <div id="status-bar" class="bg-gray-100 p-3 border-b border-gray-200 flex justify-between items-center">
-                <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Etapa Atual</span>
-                <span id="step-badge" class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800 font-bold">Início</span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Fluxo Atual</span>
+                <span id="step-badge" class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 font-bold">Início</span>
             </div>
 
-            <!-- Corpo da Pergunta/Ação -->
+            <!-- Área de Conteúdo -->
             <div class="p-6 md:p-8">
                 <div id="content-area">
-                    <!-- O conteúdo será injetado aqui pelo JavaScript -->
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Carregando protocolo...</h2>
+                    <!-- Conteúdo injetado via JS -->
                 </div>
             </div>
 
-            <!-- Rodapé do Card com Ações Globais -->
-            <div class="bg-gray-50 p-4 border-t border-gray-200 flex justify-between">
-                <button id="btn-reset" onclick="resetProtocol()" class="text-gray-500 hover:text-gray-700 text-sm font-medium flex items-center gap-1">
+            <!-- Rodapé de Ações -->
+            <div class="bg-gray-50 p-4 border-t border-gray-200 flex justify-between items-center">
+                <button onclick="resetProtocol()" class="text-gray-500 hover:text-gray-700 text-sm font-medium flex items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
                     Reiniciar
                 </button>
-                <button id="btn-back" onclick="goBack()" class="text-blue-600 hover:text-blue-800 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hidden">
-                    Voltar etapa
+                <button id="btn-back" onclick="goBack()" class="hidden text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Voltar
                 </button>
             </div>
         </div>
@@ -69,256 +74,405 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-400 py-4 text-center text-xs">
-        <p>Desenvolvido para fins educacionais - Tecnologia da Informação</p>
+    <footer class="bg-slate-800 text-slate-400 py-4 text-center text-xs">
+        <p>Desenvolvido para fins de demonstração</p>
     </footer>
 
-    <!-- Lógica da Aplicação (JavaScript) -->
+    <!-- Lógica (Máquina de Estados) -->
     <script>
-        // --- Estrutura de Dados (Grafo de Decisão) ---
-        // Aqui traduzimos o fluxograma médico para um objeto JSON.
-        // Cada chave é um "estado" do sistema.
-        
+        // Conteúdo Exato do PDF mapeado para estrutura JSON
         const protocolFlow = {
             start: {
-                title: "Triagem Inicial",
-                description: "Avalie os sinais vitais do paciente (FC, PA, Tax). Verifique sinais de toxemia.",
+                title: "Paciente com DII",
                 type: "decision",
-                status: "Triagem",
+                status: "Triagem¹",
+                // Tabela Triagem¹ do PDF recriada em HTML
+                htmlContent: `
+                    <div class="mb-4">
+                        <p class="mb-2 text-sm text-gray-600">Avalie a hemodinâmica conforme <strong>Triagem¹</strong>:</p>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-center border-collapse pdf-table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="bg-green-50 text-green-800">Leve</th>
+                                        <th class="bg-yellow-50 text-yellow-800">Moderada</th>
+                                        <th class="bg-red-50 text-red-800">Grave</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-bold text-left">FC</td>
+                                        <td>< 90 bpm</td>
+                                        <td>90-120 bpm</td>
+                                        <td>> 120 bpm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold text-left">PA</td>
+                                        <td>Estável</td>
+                                        <td>Estável</td>
+                                        <td>Instável?</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold text-left">Tax</td>
+                                        <td>Afebril</td>
+                                        <td>Febril</td>
+                                        <td>Febril</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold text-left">Sinais</td>
+                                        <td>-</td>
+                                        <td>Dor moderada</td>
+                                        <td>Toxemia, Confusão</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `,
                 options: [
-                    { label: "Paciente INSTÁVEL", next: "instavel", style: "danger" },
-                    { label: "Paciente ESTÁVEL", next: "anamnese", style: "success" }
+                    { label: "Instável Hemodinamicamente", next: "instavel", style: "danger" },
+                    { label: "Estável Hemodinamicamente", next: "estavel", style: "success" }
                 ]
             },
+            
+            // --- RAMO INSTÁVEL ---
             instavel: {
-                title: "Paciente Crítico - Instabilidade Hemodinâmica",
-                description: "<strong>AÇÃO IMEDIATA:</strong><br>1. Solicitar vaga em UTI<br>2. Expansão volêmica<br>3. Coleta de culturas + ATB<br>4. Corticoide IV",
-                question: "Após as medidas iniciais, o paciente estabilizou?",
+                title: "Instável Hemodinamicamente",
                 type: "critical",
                 status: "Emergência",
+                htmlContent: `
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+                        <h3 class="font-bold text-red-800">Medidas de estabilização</h3>
+                        <ul class="list-disc ml-5 text-red-700 text-sm mt-1">
+                            <li>Solicitar leito de UTI</li>
+                        </ul>
+                    </div>
+                    <p class="font-bold text-gray-800">Estabilizou?</p>
+                `,
                 options: [
-                    { label: "NÃO (Manter medidas)", next: "instavel", style: "danger" }, // Loop
-                    { label: "SIM (Estabilizou)", next: "anamnese", style: "primary" }
+                    { label: "Não", next: "instavel", style: "danger" }, // Loop
+                    { label: "Sim", next: "estavel_pos", style: "success" }
                 ]
             },
-            anamnese: {
-                title: "Anamnese e Queixa Principal",
-                description: "Paciente estável. Identifique a queixa predominante para direcionar a investigação.",
+
+            // --- RAMO ESTÁVEL ---
+            estavel: {
+                title: "Estável Hemodinamicamente",
+                type: "step",
+                status: "Triagem",
+                htmlContent: `
+                    <div class="text-center py-4">
+                        <p class="text-lg text-gray-700 font-semibold">Prossiga</p>
+                    </div>
+                `,
+                options: [
+                    { label: "Continuar", next: "queixa", style: "primary" }
+                ]
+            },
+            estavel_pos: { // Nó intermediário para quem veio do instável
+                title: "Paciente Estabilizado",
+                type: "step",
+                status: "Estabilizado",
+                htmlContent: `<p>Paciente agora estável hemodinamicamente. Prossiga para Anamnese.</p>`,
+                options: [{ label: "Prossiga", next: "queixa", style: "primary" }]
+            },
+
+            queixa: {
+                title: "Anamnese / Queixa Principal",
                 type: "decision",
+                status: "Anamnese",
+                // Detalhes da Anamnese² do PDF
+                htmlContent: `
+                    <div class="info-box">
+                        <h4 class="font-bold text-xs uppercase mb-1">Anamnese² - Verificar:</h4>
+                        <ul class="list-disc ml-4 text-xs grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                            <li>Motivo do atendimento (dor intensa, sangramento, diarreia, febre)</li>
+                            <li>Número e Padrão de evacuações</li>
+                            <li>Histórico de febre / Dor localizada</li>
+                            <li>Internações e cirurgias prévias</li>
+                            <li>Presença de ostomia / Tratamento vigente</li>
+                        </ul>
+                    </div>
+                    <p class="font-bold mb-2">Qual a Queixa Principal?</p>
+                `,
+                options: [
+                    { label: "Dor Abdominal / Diarreia / Febre", next: "ramo_dor", style: "primary" },
+                    { label: "Sangramento", next: "ramo_sangramento", style: "warning" }
+                ]
+            },
+
+            // --- FLUXO DOR ABDOMINAL ---
+            ramo_dor: {
+                title: "Dor Abdominal / Diarreia / Febre",
+                type: "action",
                 status: "Investigação",
+                htmlContent: `
+                    <div class="space-y-3">
+                        <div class="p-3 bg-blue-50 rounded border border-blue-100">
+                            <strong>Conduta Imediata:</strong><br>
+                            • Sintomáticos e Jejum
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded border border-gray-200 text-sm">
+                            <strong>Solicitar Labs³:</strong>
+                            <ul class="list-disc ml-4 text-xs text-gray-600 mt-1 columns-2">
+                                <li>Hemograma c/ plaquetas</li>
+                                <li>PCR e VHS</li>
+                                <li>Albumina</li>
+                                <li>Eletrólitos (Na, K, Mg)</li>
+                                <li>Ureia e Creatinina</li>
+                                <li>Transaminases (TGO, TGP)</li>
+                                <li>TP e TTP</li>
+                                <li>Beta-hCG (mulheres idade fértil)</li>
+                                <li>Clostridium difficile / Coprocultura</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-3 bg-indigo-50 rounded border border-indigo-100">
+                            <strong>Imagem:</strong><br>
+                            TC de Abdome total c/ Contraste*<br>
+                            <span class="text-xs italic">(Gestantes: Ecografia)</span>
+                        </div>
+                    </div>
+                `,
                 options: [
-                    { label: "Dor Abdominal / Diarreia / Febre", next: "workup_dor", style: "primary" },
-                    { label: "Sangramento Gastrointestinal", next: "workup_sangramento", style: "warning" } // Warning pois sangramento é alerta
+                    { label: "Verificar Resultados", next: "complicacoes_dor", style: "primary" }
                 ]
             },
-            // --- RAMO DA DOR/DIARREIA ---
-            workup_dor: {
-                title: "Exames - Dor/Diarreia",
-                description: "<strong>SOLICITAR:</strong><br>• Laboratoriais (Hemograma, PCR, eletrólitos)<br>• TC de Abdome e Pelve",
-                question: "O exame de imagem evidenciou complicações (Obstrução, Abscesso, Fístula ou Perfuração)?",
+
+            complicacoes_dor: {
+                title: "Avaliação dos Resultados",
                 type: "decision",
                 status: "Diagnóstico",
+                htmlContent: `
+                    <p class="mb-4">O exame de imagem evidencia alguma das condições abaixo?</p>
+                    <ul class="list-none space-y-2 font-semibold text-red-700 bg-red-50 p-4 rounded border border-red-100">
+                        <li>• Obstrução / Estenose</li>
+                        <li>• Abscesso / Fístula</li>
+                        <li>• Perfuração</li>
+                    </ul>
+                `,
                 options: [
-                    { label: "SIM (Com Complicações)", next: "avaliacao_cirurgica_dor", style: "danger" },
-                    { label: "NÃO (Sem Complicações)", next: "tratamento_clinico", style: "success" }
+                    { label: "Sim", next: "avaliacao_cirurgica", style: "danger" },
+                    { label: "Não", next: "tratamento_clinico", style: "success" }
                 ]
             },
-            avaliacao_cirurgica_dor: {
-                title: "Avaliação Cirúrgica",
-                description: "O paciente apresenta complicações anatômicas (perfuração, obstrução, etc).",
-                type: "final",
-                status: "Cirurgia",
-                action: "Interconsulta com Cirurgia Geral urgente.",
-                note: "Preparar para possível intervenção cirúrgica."
-            },
+
             tratamento_clinico: {
-                title: "Tratamento Clínico",
-                description: "Sem complicações cirúrgicas agudas.",
+                title: "Sem Complicações Cirúrgicas",
                 type: "final",
-                status: "Enfermaria",
-                action: "Iniciar Protocolo Medicamentoso:",
-                list: [
-                    "Tromboprofilaxia",
-                    "Antibioticoterapia (se infecção)",
-                    "Corticoterapia IV",
-                    "Solicitar Avaliação da Gastroenterologia"
-                ]
+                status: "Tratamento",
+                htmlContent: `
+                    <div class="mb-4">
+                        <h3 class="font-bold text-green-800 text-lg mb-2">Conduta:</h3>
+                        <ul class="list-disc ml-5 space-y-1 text-gray-800">
+                            <li><strong>Tromboprofilaxia</strong></li>
+                            <li><strong>Iniciar ATB ou corticoide</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box border-l-4 border-l-blue-500">
+                        <p class="font-bold text-xs text-blue-800 mb-1">Antibióticos e Corticoides (Para moderada ou grave):</p>
+                        <ul class="list-disc ml-4 text-xs">
+                            <li>Hidrocortisona 100mg IV 6/6h</li>
+                            <li>Ampicilina/Sulbactam</li>
+                            <li>Piperacilina/Tazobactam</li>
+                            <li>Meropenem</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-100 p-4 rounded text-center">
+                        <strong>Solicitar Avaliação Gastro</strong>
+                        <p class="text-xs mt-1 text-blue-800">
+                            Leves e Moderados: Até 4h (dia útil)<br>
+                            Graves: Contato imediato
+                        </p>
+                    </div>
+                `,
+                options: [] // Fim
             },
-            // --- RAMO DO SANGRAMENTO ---
-            workup_sangramento: {
-                title: "Exames - Sangramento",
-                description: "<strong>SOLICITAR:</strong><br>• Laboratoriais<br>• Angio-TC de Abdome<br>• Avaliar necessidade de transfusão",
-                question: "Avançar para avaliação cirúrgica (Passo Obrigatório no Sangramento).",
-                type: "decision",
-                status: "Diagnóstico",
+
+            // --- FLUXO SANGRAMENTO ---
+            ramo_sangramento: {
+                title: "Sangramento",
+                type: "action",
+                status: "Investigação",
+                htmlContent: `
+                    <div class="space-y-3">
+                        <div class="p-3 bg-orange-50 rounded border border-orange-100">
+                            <strong>Conduta Imediata:</strong><br>
+                            • Sintomáticos e Jejum<br>
+                            • Hemotransfusão SN (Se Necessário)
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded border border-gray-200 text-sm">
+                            <strong>Solicitar Labs³</strong> (ver lista padrão)
+                        </div>
+
+                        <div class="p-3 bg-indigo-50 rounded border border-indigo-100">
+                            <strong>Imagem:</strong><br>
+                            Angio-TC de Abdome
+                        </div>
+                    </div>
+                `,
                 options: [
-                    { label: "Prosseguir para Avaliação", next: "decisao_cirurgica_sangue", style: "primary" }
+                    { label: "Encaminhar para Avaliação", next: "avaliacao_cirurgica_sangue", style: "primary" }
                 ]
             },
-            decisao_cirurgica_sangue: {
-                title: "Decisão da Cirurgia",
-                description: "O cirurgião avaliou o paciente e os exames de imagem.",
-                question: "Existe indicação de intervenção cirúrgica de urgência?",
+
+            avaliacao_cirurgica_sangue: {
+                title: "Avaliação Cirúrgica",
                 type: "decision",
                 status: "Decisão",
+                htmlContent: `
+                    <div class="bg-red-50 p-4 rounded mb-4 border border-red-200">
+                        <p class="font-bold text-red-800">Avaliação cirúrgica Obrigatória</p>
+                        <p class="text-xs text-red-600">Meta: Em até 2 horas</p>
+                    </div>
+                    <p class="font-bold">Existe Indicação cirúrgica?</p>
+                `,
                 options: [
-                    { label: "SIM (Indicação Cirúrgica)", next: "bloco_cirurgico", style: "danger" },
-                    { label: "NÃO (Tratamento Clínico)", next: "avaliacao_gastro", style: "success" }
+                    { label: "Sim", next: "cirurgia", style: "danger" },
+                    { label: "Não", next: "avaliacao_gastro_sangue", style: "success" }
                 ]
             },
-            bloco_cirurgico: {
-                title: "Tratamento Cirúrgico",
-                description: "Paciente com sangramento incontrolável ou complicação aguda.",
+
+            // --- FINAIS COMUNS ---
+            avaliacao_cirurgica: {
+                title: "Avaliação Cirúrgica",
+                type: "final",
+                status: "Interconsulta",
+                htmlContent: `
+                    <div class="text-center p-6 bg-red-50 border border-red-200 rounded">
+                        <h3 class="text-xl font-bold text-red-700 mb-2">Avaliação Cirúrgica</h3>
+                        <p class="text-sm text-red-600">Meta de atendimento: <strong>Em até 2 horas</strong></p>
+                    </div>
+                `,
+                options: []
+            },
+            cirurgia: {
+                title: "Cirurgia",
                 type: "final",
                 status: "Centro Cirúrgico",
-                action: "Encaminhar ao Centro Cirúrgico.",
-                note: "Monitorização contínua até o procedimento."
+                htmlContent: `
+                    <div class="text-center p-6 bg-red-100 border border-red-300 rounded">
+                        <h3 class="text-2xl font-bold text-red-800">Proceder à Cirurgia</h3>
+                        <p class="mt-2">Indicação confirmada.</p>
+                    </div>
+                `,
+                options: []
             },
-            avaliacao_gastro: {
-                title: "Acompanhamento Especializado",
-                description: "Paciente sem indicação cirúrgica de urgência.",
+            avaliacao_gastro_sangue: {
+                title: "Avaliação Gastro",
                 type: "final",
-                status: "Enfermaria",
-                action: "Internação sob cuidados da Gastroenterologia.",
-                list: [
-                    "Manter estabilização",
-                    "Investigação eletiva (Colonoscopia se estável)",
-                    "Ajuste medicamentoso"
-                ]
+                status: "Especialidade",
+                htmlContent: `
+                    <div class="text-center p-6 bg-blue-50 border border-blue-200 rounded">
+                        <h3 class="text-xl font-bold text-blue-700">Avaliação Gastro</h3>
+                        <div class="text-left text-xs mt-4 space-y-2 text-blue-900 bg-white p-3 rounded shadow-sm">
+                            <p><strong>LEVES e MODERADOS:</strong> Em até 4 horas (08-17h dias úteis). Noite/FDS: próximo dia útil.</p>
+                            <p><strong>GRAVES:</strong> Contato telefônico imediato com residente.</p>
+                        </div>
+                    </div>
+                `,
+                options: []
             }
         };
 
-        // --- Gerenciamento de Estado ---
+        // --- Engine da Aplicação ---
         let historyStack = [];
-        let currentStateKey = 'start';
+        let currentKey = 'start';
 
-        // Inicialização
         document.addEventListener('DOMContentLoaded', () => {
-            renderState('start');
+            renderStep('start');
         });
 
-        function renderState(key) {
-            const state = protocolFlow[key];
-            const contentArea = document.getElementById('content-area');
-            const statusBadge = document.getElementById('step-badge');
-            const appCard = document.getElementById('app-card');
+        function renderStep(key) {
+            const step = protocolFlow[key];
+            const contentDiv = document.getElementById('content-area');
+            const badge = document.getElementById('step-badge');
             
-            // Atualizar badge de status
-            statusBadge.innerText = state.status;
-            updateStatusColor(state.type, statusBadge);
+            // Atualiza Badge
+            badge.innerText = step.status;
+            badge.className = `px-3 py-1 text-xs rounded-full font-bold uppercase tracking-wide ${getStatusColor(step.type)}`;
 
-            // Animação simples de transição
-            contentArea.classList.remove('fade-in');
-            void contentArea.offsetWidth; // Trigger reflow
-            contentArea.classList.add('fade-in');
+            // Animação
+            contentDiv.classList.remove('fade-in');
+            void contentDiv.offsetWidth; 
+            contentDiv.classList.add('fade-in');
 
-            // Gerar HTML baseado no tipo do estado
+            // Renderiza HTML
             let html = `
-                <div class="mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-2">${state.title}</h2>
-                    <div class="text-gray-600 text-base leading-relaxed p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-                        ${state.description}
-                    </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">${step.title}</h2>
+                <div class="text-base text-gray-700 mb-6">
+                    ${step.htmlContent}
                 </div>
             `;
 
-            // Se for um nó final (Fim do fluxo)
-            if (state.type === 'final') {
-                html += `
-                    <div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-                        <h3 class="text-xl font-bold text-green-800 mb-2">${state.action}</h3>
-                        ${state.list ? `<ul class="text-left list-disc pl-6 mt-4 text-green-900">${state.list.map(i => `<li class="mb-1">${i}</li>`).join('')}</ul>` : ''}
-                        ${state.note ? `<p class="mt-4 text-sm text-green-700 italic">${state.note}</p>` : ''}
-                    </div>
-                `;
-            } 
-            // Se for um nó de decisão ou crítico
-            else {
-                if (state.question) {
-                    html += `<p class="font-semibold text-gray-700 mb-4">${state.question}</p>`;
-                }
-                
-                html += `<div class="grid grid-cols-1 gap-3 md:grid-cols-2 mt-6">`;
-                
-                state.options.forEach(opt => {
-                    const btnColor = getButtonColor(opt.style);
+            // Renderiza Botões
+            if (step.options && step.options.length > 0) {
+                html += `<div class="grid grid-cols-1 md:grid-cols-${step.options.length > 1 ? '2' : '1'} gap-3 mt-4">`;
+                step.options.forEach(opt => {
                     html += `
-                        <button onclick="navigateTo('${opt.next}')" 
-                            class="${btnColor} text-white font-bold py-4 px-6 rounded-lg shadow transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-opacity-50 flex items-center justify-center">
+                        <button onclick="nextStep('${opt.next}')" 
+                            class="w-full py-4 px-6 rounded-lg shadow-sm font-bold text-white transition transform hover:-translate-y-1 hover:shadow-md focus:outline-none ${getBtnColor(opt.style)}">
                             ${opt.label}
                         </button>
                     `;
                 });
-                
                 html += `</div>`;
             }
 
-            contentArea.innerHTML = html;
-            currentStateKey = key;
-            updateBackButton();
-            
-            // Efeito visual para estado crítico
-            if(state.type === 'critical') {
-                appCard.classList.add('border-red-500', 'border-2');
-            } else {
-                appCard.classList.remove('border-red-500', 'border-2');
-            }
+            contentDiv.innerHTML = html;
+            currentKey = key;
+            updateNavButtons();
         }
 
-        // Navegação
-        function navigateTo(nextKey) {
-            historyStack.push(currentStateKey);
-            renderState(nextKey);
+        function nextStep(key) {
+            historyStack.push(currentKey);
+            renderStep(key);
         }
 
         function goBack() {
-            if (historyStack.length > 0) {
-                const prevKey = historyStack.pop();
-                renderState(prevKey);
-                // Remove o push que o renderState faria ou ajusta logicamente
-                // Como renderState não dá push, só precisamos renderizar a chave anterior
+            if(historyStack.length > 0) {
+                const prev = historyStack.pop();
+                renderStep(prev);
+                // Ajuste para não duplicar o histórico ao renderizar o anterior
+                // Na prática, renderStep define currentKey, que é o que precisamos
             }
         }
 
         function resetProtocol() {
             historyStack = [];
-            renderState('start');
+            renderStep('start');
         }
 
-        function updateBackButton() {
-            const btn = document.getElementById('btn-back');
-            if (historyStack.length > 0) {
-                btn.classList.remove('hidden');
-                btn.disabled = false;
+        function updateNavButtons() {
+            const btnBack = document.getElementById('btn-back');
+            if(historyStack.length > 0) {
+                btnBack.classList.remove('hidden');
             } else {
-                btn.classList.add('hidden');
+                btnBack.classList.add('hidden');
             }
         }
 
-        // Utilitários de Estilo
-        function updateStatusColor(type, element) {
-            element.className = "px-2 py-1 text-xs rounded-full font-bold uppercase tracking-wide ";
+        function getStatusColor(type) {
             switch(type) {
-                case 'critical':
-                    element.className += "bg-red-100 text-red-800";
-                    break;
-                case 'final':
-                    element.className += "bg-green-100 text-green-800";
-                    break;
-                case 'decision':
-                    element.className += "bg-blue-100 text-blue-800";
-                    break;
-                default:
-                    element.className += "bg-gray-100 text-gray-800";
+                case 'critical': return 'bg-red-100 text-red-800';
+                case 'success': return 'bg-green-100 text-green-800';
+                case 'decision': return 'bg-blue-100 text-blue-800';
+                case 'final': return 'bg-gray-100 text-gray-800';
+                default: return 'bg-blue-50 text-blue-600';
             }
         }
 
-        function getButtonColor(style) {
+        function getBtnColor(style) {
             switch(style) {
-                case 'danger': return 'bg-red-600 hover:bg-red-700 focus:ring-red-400';
-                case 'success': return 'bg-green-600 hover:bg-green-700 focus:ring-green-400';
-                case 'warning': return 'bg-orange-500 hover:bg-orange-600 focus:ring-orange-400';
-                default: return 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-400';
+                case 'danger': return 'bg-red-600 hover:bg-red-700';
+                case 'success': return 'bg-green-600 hover:bg-green-700';
+                case 'warning': return 'bg-orange-500 hover:bg-orange-600';
+                default: return 'bg-blue-600 hover:bg-blue-700';
             }
         }
     </script>
